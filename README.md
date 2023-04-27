@@ -2,7 +2,9 @@
 
 create virtual env, activate and install essential libraries (bash):
 python -m venv renew_venv
+
 renew_venv\Scripts\activate
+
 pip install -r requirements.txt
 
 # Renewable Energy Forecasting
