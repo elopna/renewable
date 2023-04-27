@@ -13,12 +13,7 @@ This project demonstrates the use of machine learning techniques to forecast pow
 
 Follow these steps to set up the project on your local machine:
 
-### Prerequisites
-
-- Python 3.7 or higher
-- pip (Python package installer)
-
-### Installation and Running the Project
+### Get data and Running the Project
 
 #### Data
 
