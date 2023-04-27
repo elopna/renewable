@@ -1,1 +1,9 @@
 data/
+
+# Ignore virtual environment directories
+renew_venv/
+__pycache__/
+
+# Ignore .pyc and .pyo files
+*.pyc
+*.pyo
