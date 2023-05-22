@@ -98,13 +98,13 @@ Ensemble Stacking: As per [4], using an ensemble stacking technique could improv
 
 
 #### References:
-Hui Wei, Wen-sheng Wang, Xiao-xuan Kao, A novel approach to ultra-short-term wind power prediction based on feature engineering and informer, Energy Reports, Volume 9, 2023, pp. 1236-1250, ISSN 2352-4847, doi:10.1016/j.egyr.2022.12.062
+[1] Hui Wei, Wen-sheng Wang, Xiao-xuan Kao, A novel approach to ultra-short-term wind power prediction based on feature engineering and informer, Energy Reports, Volume 9, 2023, pp. 1236-1250, ISSN 2352-4847, doi:10.1016/j.egyr.2022.12.062
 
-Chen Q and Folly KA (2021) Short-Term Wind Power Forecasting Using Mixed Input Feature-Based Cascade-connected Artificial Neural Networks. Front. Energy Res. 9:634639. doi: 10.3389/fenrg.2021.634639
+[2] Chen Q and Folly KA (2021) Short-Term Wind Power Forecasting Using Mixed Input Feature-Based Cascade-connected Artificial Neural Networks. Front. Energy Res. 9:634639. doi: 10.3389/fenrg.2021.634639
 
-A Study on the Wind Power Forecasting Model Using Transfer Learning Approach by JeongRim Oh, JongJin Park, ChangSoo Ok, ChungHun Ha, Hong-Bae Jun, Electronics 2022, 11(24), 4125; doi:10.3390/electronics11244125
+[3] A Study on the Wind Power Forecasting Model Using Transfer Learning Approach by JeongRim Oh, JongJin Park, ChangSoo Ok, ChungHun Ha, Hong-Bae Jun, Electronics 2022, 11(24), 4125; doi:10.3390/electronics11244125
 
-Ibtihal Ait Abdelmoula, Said Elhamaoui, Omaima Elalani, Abdellatif Ghennioui, Mohamed El Aroussi (2022) A photovoltaic power prediction approach enhanced by feature engineering and stacked machine learning model. Energy Reports, Volume 8, Supplement 9, pp.1288-1300.
+[4] Ibtihal Ait Abdelmoula, Said Elhamaoui, Omaima Elalani, Abdellatif Ghennioui, Mohamed El Aroussi (2022) A photovoltaic power prediction approach enhanced by feature engineering and stacked machine learning model. Energy Reports, Volume 8, Supplement 9, pp.1288-1300.
 
 
 
