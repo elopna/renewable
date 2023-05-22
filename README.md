@@ -62,12 +62,12 @@ The results of this project provide insights into the importance of various feat
 
 
 
-Suggestions for Future Improvements
+### Suggestions for Future Improvements
 Based on my study of recent research literature, here are some suggestions for future improvements to this project:
 
 
 
-Wind Energy Forecasting:
+#### Wind Energy Forecasting:
 
 Magnitude of Wind Velocity: Domain knowledge suggests that the magnitude of wind velocity, computed from horizontal and vertical components, is vital for accurate wind power forecasts. This variable should be computed and included as a feature in the model.
 
@@ -79,7 +79,7 @@ Error Correction Model: An error correction model could be created for the wind 
 
 
 
-Solar Energy Forecasting:
+#### Solar Energy Forecasting:
 
 Error Correction Model: Similar to wind energy forecasting, an error correction model for the irradiance forecast data could significantly improve the forecast accuracy for solar power generation.
 
@@ -87,7 +87,7 @@ PVWatts Model: The PVWatts model developed by NREL could be employed to predict 
 
 
 
-Common Ideas both for Solar and Wind Energy Forecasting:
+#### Common Ideas both for Solar and Wind Energy Forecasting:
 
 Neighboring Meteorological Data: Including additional meteorological variables from neighboring stations could provide valuable surrounding information to the forecasting model, improving its performance.
 
@@ -97,7 +97,7 @@ Ensemble Stacking: As per [4], using an ensemble stacking technique could improv
 
 
 
-References
+#### References:
 Hui Wei, Wen-sheng Wang, Xiao-xuan Kao, A novel approach to ultra-short-term wind power prediction based on feature engineering and informer, Energy Reports, Volume 9, 2023, pp. 1236-1250, ISSN 2352-4847, doi:10.1016/j.egyr.2022.12.062
 
 Chen Q and Folly KA (2021) Short-Term Wind Power Forecasting Using Mixed Input Feature-Based Cascade-connected Artificial Neural Networks. Front. Energy Res. 9:634639. doi: 10.3389/fenrg.2021.634639
