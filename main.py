@@ -25,6 +25,7 @@ for set in feature_sets:
     
     feature_sets[set]['model'] = model
 
+# Calculate metrics for each trained model
 metrics_df = calculate_metrics(feature_sets)
 print('Models comparison:')
 print(metrics_df)

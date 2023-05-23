@@ -26,9 +26,9 @@ def parse_config(config):
         config (ConfigParser): A ConfigParser object containing the configuration settings.
 
     Returns:
-        tuple: A tuple containing the extracted values for weather_data_file_name,
-               production_data_file_name, num_samples, wind_features, solar_features,
-               wind_target, and solar_target.
+        tuple: A tuple containing the extracted values for weather_data_file_name, production_data_file_name, 
+        num_samples, horizon, rolling_features, quantile_fitering_columns, lower_quantile, upper_quantile, 
+        feature_sets, tune_hyperparams.
     """
     weather_data_file_name = config['data']['weather_data_file_name']
     production_data_file_name = config['data']['production_data_file_name']
@@ -98,10 +98,26 @@ def create_time_features(df):
     return df
 
 def create_lag_features(df, lag_features, horizon):
+    """
+    This function creates lagged features for a given DataFrame. It takes a DataFrame, a list of features for which to create lags, and a horizon for lagging.
+    
+    Args:
+    df : pandas.DataFrame
+        The DataFrame for which to create lagged features.
+    lag_features : list of str
+        The list of features for which to create lags.
+    horizon : int
+        Forecasting horizon (<24).
+    
+    Returns:
+    df : pandas.DataFrame
+        The DataFrame with the created lagged features.
+    """
+    df = df.sort_index()
     for f in lag_features:
         df[f'{f}_prev_1'] = df[f].shift(horizon+1)
         df[f'{f}_prev_2'] = df[f].shift(horizon+2)
-    df['yesterday_power'] = df[f].shift(24)
+        df[f'{f}_prev_24'] = df[f].shift(24)
     return df
 
 def compute_rolling_stats(df, columns, window, horizon):
@@ -238,18 +254,36 @@ def add_ghi(df):
 def prepare_data(production_data_file_name, weather_data_file_name, features, target, horizon, 
                  rolling_features, quantile_fitering_columns, lower_quantile, upper_quantile):
     """
-    Read and prepare data for analysis.
+    This function reads and prepares data for analysis. It merges production and weather data, 
+    creates additional features, applies quantile filtering and split the data into training and testing sets.
 
-    Args:
-        production_data_file_name (str): The name of the production data file.
-        weather_data_file_name (str): The name of the weather data file.
-        wind_features (list): A list of wind-related feature names.
-        wind_target (str): The name of the wind target variable.
-        solar_features (list): A list of solar-related feature names.
-        solar_target (str): The name of the solar target variable.
+    Parameters
+    ----------
+    production_data_file_name : str
+        The name of the file containing production data (wind and solar).
+    weather_data_file_name : str
+        The name of the file containing weather data.
+    features : list
+        A list of feature names to be used in the model.
+    target : str
+        The name of the target variable to predict.
+    horizon : int
+        The forecasting horizon in hours.
+    rolling_features : list
+        A list of feature names for which to compute rolling statistics.
+    quantile_fitering_columns : list
+        A list of feature names for which to apply quantile filtering.
+    lower_quantile : float
+        The lower quantile for quantile filtering.
+    upper_quantile : float
+        The upper quantile for quantile filtering.
 
-    Returns:
-        tuple: A tuple containing the prepared wind_train, wind_test, solar_train, and solar_test DataFrames.
+    Returns
+    -------
+    df_train : pandas.DataFrame
+        The training data, containing the features and target.
+    df_test : pandas.DataFrame
+        The testing data, containing the features and target.
     """
     #read production data
     production_wind_solar = pd.read_csv(f'data/{production_data_file_name}', #.strip('\'')
@@ -269,7 +303,7 @@ def prepare_data(production_data_file_name, weather_data_file_name, features, ta
     print()
 
     print('Phik_matrix:')
-    print(df.phik_matrix())
+    print(df.phik_matrix().round(2))
     print()
 
     #calculate ghi - Global Horizontal Irradiance

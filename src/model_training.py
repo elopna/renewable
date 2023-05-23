@@ -8,7 +8,7 @@ import optuna
 import logging
 optuna.logging.set_verbosity(optuna.logging.WARNING)
 
-def objective(trial, train_pool, test_pool, test, test_y, target):
+def objective(trial, train_pool, test_pool, test_y):
     """
     Optuna objective function for hyperparameter optimization of CatBoost model.
 
@@ -16,8 +16,7 @@ def objective(trial, train_pool, test_pool, test, test_y, target):
         trial (optuna.trial.Trial): An Optuna trial object with suggested hyperparameters.
         train_pool (catboost.Pool): A CatBoost training dataset.
         test_pool (catboost.Pool): A CatBoost test dataset.
-        test (pd.DataFrame): A test dataset with features and target.
-        target (str): The name of the target variable.
+        test_y (pd.DataFrame): A test target.
 
     Returns:
         float: Mean absolute error on the test dataset.
@@ -41,21 +40,42 @@ def objective(trial, train_pool, test_pool, test, test_y, target):
 
 def train_model(train, numeric_features, categorical_features, target, learning_rate=0.1, loss_function='MAE', iterations=1000, depth=6, optuna_n_trials=50, tune_hyperparams=True, n_splits=5):
     """
-    Train a CatBoost model with default and optimized hyperparameters using Optuna.
+    Train a CatBoost model with the option of using Optuna for hyperparameter tuning. K-fold cross-validation is performed, feature importance is computed and plotted.
 
-    Args:
-        train (pd.DataFrame): A training dataset with features and target.
-        test (pd.DataFrame): A test dataset with features and target.
-        features (list): A list of feature names.
-        target (str): The name of the target variable.
-        learning_rate (float, optional): The learning rate for the CatBoost model. Defaults to 0.1.
-        loss_function (str, optional): The loss function for the CatBoost model. Defaults to 'MAE'.
-        iterations (int, optional): The number of iterations for the CatBoost model. Defaults to 1000.
-        depth (int, optional): The depth of trees in the CatBoost model. Defaults to 6.
-        optuna_n_trials (int, optional): The number of trials for Optuna optimization. Defaults to 50.
+    Parameters
+    ----------
+    train : pd.DataFrame
+        A DataFrame containing the training data with features and target.
+    numeric_features : list
+        A list of numerical feature names.
+    categorical_features : list
+        A list of categorical feature names.
+    target : str
+        The name of the target variable.
+    learning_rate : float, optional
+        The learning rate for the CatBoost model. Defaults to 0.1.
+    loss_function : str, optional
+        The loss function for the CatBoost model. Defaults to 'MAE'.
+    iterations : int, optional
+        The number of iterations for the CatBoost model. Defaults to 1000.
+    depth : int, optional
+        The depth of trees in the CatBoost model. Defaults to 6.
+    optuna_n_trials : int, optional
+        The number of trials for Optuna optimization. Defaults to 50.
+    tune_hyperparams : bool, optional
+        If True, hyperparameters are tuned using Optuna. Defaults to True.
+    n_splits : int, optional
+        Number of folds for K-fold cross-validation. Defaults to 5.
 
-    Returns:
-        catboost.CatBoostRegressor: The trained CatBoost model with optimized hyperparameters.
+    Returns
+    -------
+    tuple
+        A tuple containing the trained CatBoost model and the overall mean absolute error (MAE) of the out-of-fold predictions.
+
+    Notes
+    -----
+    The function fits the CatBoost model, tunes hyperparameters if specified, generates out-of-fold predictions, 
+    computes the overall MAE, and plots feature importances.
     """
     # create a kfold object
     kfold = KFold(n_splits=n_splits, shuffle=True, random_state=42)
